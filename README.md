@@ -150,16 +150,58 @@ This module also includes a potentiometer that will fix the threshold value, & t
 
 
 ##  Program 
+~~~
+Developed By: Ragul M
+Reg No:212221230080
+~~~
+~~~
+#include "main.h"
+#include"stdio.h"
+uint32_t adcvalue;
+#if defined (__ICCARM__) || defined (__ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(__GNUC__)
 
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif
 
- 
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_ADC1_Init();
+  MX_USART2_UART_Init();
 
-## Result :
+  while (1)
+  {
+	  HAL_ADC_Start(&hadc1);
+	  			HAL_ADC_PollForConversion(&hadc1,100);
+	  			adcvalue = HAL_ADC_GetValue(&hadc1);
+	  			HAL_ADC_Stop(&hadc1);
+	  			HAL_Delay(500);
+	  			printf("ADC VALUE:%ld\n",adcvalue);
+  }
+}
+PUTCHAR_PROTOTYPE
+{
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
+  return ch;
+}
+~~~
+
  
 ## Output  :
 
+![img1](https://github.com/ragulmani936/Ex.-No.8-CONFIGURING-ANALOG-PORT-TO-INTEFACE-AN-ANALOG-SENSOR-AND-READ-THE-VALUES-USING-SERIAL-PORT/assets/94881918/88380247-49e0-4865-880c-9f4bf99797e9)
 
+![img2](https://github.com/ragulmani936/Ex.-No.8-CONFIGURING-ANALOG-PORT-TO-INTEFACE-AN-ANALOG-SENSOR-AND-READ-THE-VALUES-USING-SERIAL-PORT/assets/94881918/a90d3cbb-ed8e-4309-85f8-7d118d9f1677)
 
+![img3](https://github.com/ragulmani936/Ex.-No.8-CONFIGURING-ANALOG-PORT-TO-INTEFACE-AN-ANALOG-SENSOR-AND-READ-THE-VALUES-USING-SERIAL-PORT/assets/94881918/0d7222b8-d3a3-4149-a4eb-5c81e92da45d)
+
+## Result :
+
+Thus, Temperature sensor LM35 is interfaced to LPC2148 and its output is measured.
 
 
 
